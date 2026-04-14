@@ -1,0 +1,471 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  background: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ── Gender selection ─────────────────────── */
+.gender-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 24px;
+}
+
+.gender-content {
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.gender-icon { font-size: 48px; margin-bottom: 16px; }
+
+.game-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.game-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
+.game-meta {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 36px;
+}
+
+.gender-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 20px;
+}
+
+.gender-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.gender-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 20px 28px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 160px;
+}
+
+.gender-btn:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.gender-btn img {
+  width: 120px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.gender-btn span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ── Game screen ──────────────────────────── */
+.game-screen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fade-in { animation: fadeIn 0.4s ease; }
+.fade-out { opacity: 0; transition: opacity 0.4s ease; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease;
+  z-index: 0;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.85) 100%);
+  z-index: 1;
+}
+
+.progress-bar-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.15);
+  z-index: 10;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #7F77DD;
+  transition: width 0.4s ease;
+}
+
+.chapter-info {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.ch-num { font-weight: 500; }
+
+/* ── Character stage ──────────────────────── */
+.stage {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 1;
+  padding-bottom: 8px;
+  min-height: 260px;
+}
+
+.character-img {
+  height: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
+  transition: all 0.3s ease;
+}
+
+.main-char {
+  position: relative;
+  z-index: 2;
+}
+
+.npc-img {
+  position: absolute;
+  left: 8%;
+  bottom: 0;
+  height: 260px;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+/* ── Dialog box ───────────────────────────── */
+.dialog-box {
+  position: relative;
+  z-index: 10;
+  background: rgba(15, 15, 30, 0.88);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 20px 20px 28px;
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.scene-desc {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.6;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.monologue {
+  margin-bottom: 14px;
+}
+
+.monologue p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.9;
+}
+
+.question {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  padding: 10px 14px;
+  background: rgba(127,119,221,0.15);
+  border-left: 3px solid #7F77DD;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.choice-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 13px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  width: 100%;
+}
+
+.choice-btn:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.choice-btn.selected {
+  background: rgba(127,119,221,0.18);
+  border-color: #7F77DD;
+}
+
+.choice-num {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  min-width: 16px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+
+.choice-body { flex: 1; }
+
+.choice-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.5;
+  margin-bottom: 2px;
+}
+
+.choice-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+
+.next-btn {
+  width: 100%;
+  padding: 12px;
+  background: #7F77DD;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.next-btn:hover {
+  background: #6b63c9;
+  transform: translateY(-1px);
+}
+
+/* ── Result screen ────────────────────────── */
+.result-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 32px 20px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.result-content {
+  max-width: 480px;
+  width: 100%;
+}
+
+.result-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.result-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.result-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.result-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.metric-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+.product-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.product-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.product-tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.product-tag.later {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+}
+
+.product-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.product-name-later {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+.compare-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.compare-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12px;
+}
+
+.bar-row { margin-bottom: 8px; }
+
+.bar-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.bar-name { font-size: 12px; color: rgba(255,255,255,0.6); }
+.bar-pct { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+.bar-bg {
+  height: 5px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+}
+
+.bar-fill {
+  height: 5px;
+  border-radius: 3px;
+  transition: width 0.8s ease;
+}
+
+.retry-btn {
+  width: 100%;
+  padding: 13px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.retry-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+/* ── Responsive ───────────────────────────── */
+@media (max-width: 480px) {
+  .character-img { height: 220px; }
+  .npc-img { height: 190px; }
+  .game-title { font-size: 26px; }
+}
